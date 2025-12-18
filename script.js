@@ -2,12 +2,24 @@
 
 renderBooks();
 
+function showComments(commentsArray) {
+    let html = ''; 
+    for (let commentIndex = 0; commentIndex < commentsArray.length; commentIndex++) {
+        const comment = commentsArray[commentIndex];
+        html += `<div class="comment-box">
+                    <b>${comment.name}</b>: ${comment.comment}
+                 </div>`;
+    }
+    return html;
+}
+
+
 function renderBooks() {
     let content = document.getElementById('books-container');
     content.innerHTML = '';
 
-    for (let index = 0; index < books.length; index++) {
-        const book = books[index];
+    for (let bookIndex = 0; bookIndex < books.length; bookIndex++) {
+        const book = books[bookIndex];
 
         let heartIcon = book.liked ? '❤️' : '🤍';
 
@@ -24,11 +36,12 @@ function renderBooks() {
                     
                     <div class="book-stats">
                         <span class="price">${book.price.toFixed(2)} €</span>
-                        <span class="likes">${heartIcon} ${book.likes}</span>
+                        <span class="likes"><button onclick="toggleHeart(${bookIndex})" class="heart_button">${heartIcon}</button> ${book.likes}</span>
                     </div>
 
-                    <div class="comments-preview">
-                        Kommentare: ${book.comments.length}
+                    <div class="comment-container">
+                        <h3>Kommentare</h3>
+                        ${showComments(book.comments)}
                     </div>
                 </div>
             </div>
@@ -36,4 +49,15 @@ function renderBooks() {
     }
 }
 
+
 //#endregion
+
+function toggleHeart(bookIndex) {
+    books[bookIndex].liked = !books[bookIndex].liked;
+    if (books[bookIndex].liked) {
+        books[bookIndex].likes++;
+    } else {
+        books[bookIndex].likes--;
+    }
+    renderBooks();
+}
