@@ -3,3 +3,22 @@
     padding: 0;
     box-sizing: border-box;
 }
+
+body {
+    font-family: Arial, sans-serif;
+    background: linear-gradient(135deg, #a8c0ff 0%, #f12711 100%);
+    background-attachment: fixed;
+    min-height: 100vh;
+    color: #1d1d1d;
+    line-height: 1.6;
+}
+
+h1 {
+    text-align: center;
+    margin: 20px 0;
+    font-size: 60px;
+}
+
+.d-none {
+    display: none !important; 
+}
