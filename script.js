@@ -22,6 +22,7 @@ function showComments(commentsArray) {
 }
 
 function renderBooks() {
+  5;
   let content = document.getElementById("books-container");
   content.innerHTML = "";
 
@@ -29,6 +30,8 @@ function renderBooks() {
     const book = books[bookIndex];
 
     let heartIcon = book.liked ? "❤️" : "🤍";
+
+    let commentClass = books[bookIndex].showComments ? "" : "d-none";
 
     content.innerHTML += `
             <div class="book-card">
@@ -50,7 +53,14 @@ function renderBooks() {
                 </div>
 
                 <button onclick="toggleComments(${bookIndex})" class="comment-button">Kommentare</button>
-                <div id="comments-${bookIndex}" class="comment-container d-none">
+
+                <div class="add-comment">
+                  <input type="text" id="input-${bookIndex}" placeholder="Dein Name...">
+                  <textarea id="text-${bookIndex}" placeholder="Schreibe einen Kommentar..."></textarea>
+                  <button class="add-comment-button" onclick="addComment(${bookIndex})">Posten</button>
+                </div>
+
+                <div id="comments-${bookIndex}" class="comment-container ${commentClass}">
                      ${showComments(book.comments)}
                 </div>
                 
@@ -72,7 +82,23 @@ function toggleHeart(bookIndex) {
 }
 
 function toggleComments(bookIndex) {
-  let container = document.getElementById(`comments-${bookIndex}`);
+  books[bookIndex].showComments = !books[bookIndex].showComments;
+  renderBooks();
+}
 
-  container.classList.toggle("d-none");
+function addComment(bookIndex) {
+  let nameInput = document.getElementById(`input-${bookIndex}`);
+  let commentInput = document.getElementById(`text-${bookIndex}`);
+  if (nameInput.value.trim() === "" || commentInput.value.trim() === "") {
+    alert("Bitte füllen Sie sowohl den Namen als auch den Kommentar aus.");
+    return;
+  }
+  let newComment = {
+    name: nameInput.value,
+    comment: commentInput.value,
+  };
+
+  books[bookIndex].comments.push(newComment);
+  books[bookIndex].showComments = true;
+  renderBooks();
 }

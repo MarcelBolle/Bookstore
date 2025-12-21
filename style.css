@@ -164,3 +164,39 @@ main {
 .logo {
   max-height: 200px;
 }
+
+.add-comment {
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+  margin-top: 15px;
+  padding-top: 10px;
+  border-top: 1px dashed #ccc;
+}
+
+.add-comment input,
+.add-comment textarea {
+  padding: 8px;
+  border: 1px solid #ddd;
+  border-radius: 5px;
+  font-family: inherit;
+}
+
+.add-comment textarea {
+  resize: vertical; /* Erlaubt nur Höhenänderung */
+  min-height: 50px;
+}
+
+.add-comment-button {
+  align-self: flex-end;
+  padding: 8px 16px;
+  border: none;
+  background-color: #007bff;
+  color: white;
+  border-radius: 5px;
+  cursor: pointer;
+}
+
+.add-comment-button:hover {
+  background-color: #0056b3;
+}
